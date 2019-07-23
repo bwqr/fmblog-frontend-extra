@@ -1,1 +1,39 @@
-<p>gallery-add works!</p>
+<div *ngIf="isPageReady">
+
+    <form #f="ngForm" (ngSubmit)="addGallery(f)">
+        <div class="columns">
+            <div class="column is-one-third">
+
+                <mat-card>
+                    <div class="images columns" *ngFor="let image of images; let i = index" style="position: relative">
+                        <mat-icon style="position: absolute; top: 0; right: 0;" (click)="removeImage(image.id)">close
+                        </mat-icon>
+                        <div class="image is-96x96" style="display: flex; justify-content:center; align-items: center">
+                            <img src="" [id]="'image-'+image.id">
+                        </div>
+
+                        <div class="field">
+                            <mat-form-field>
+                                <input matInput type="number" placeholder="Galeri Sıralamsı" [(ngModel)]="weight[i]"
+                                    [name]="'weight-' + i" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <input type="file" #file style="display: none" (change)="showImage()" ngModel name="image" multiple>
+
+
+                    <div class="field">
+
+                        <button mat-button (click)="file.click()" type="button">Resim Yükle</button>
+
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
+        <button mat-fab class="add-btn" type="submit" [disabled]="!f.valid && images.length">
+            <mat-icon>add</mat-icon>
+        </button>
+    </form>
+</div>

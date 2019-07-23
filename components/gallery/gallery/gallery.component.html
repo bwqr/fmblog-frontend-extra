@@ -1,1 +1,26 @@
-<p>gallery works!</p>
+<ng-template #loading>
+    <mat-spinner class="loading"></mat-spinner>
+</ng-template>
+
+<div class="container" *ngIf="isPageReady; else loading">
+    <mat-card>
+        <div class="title">
+            <h1 class="is-size-3">Galeri</h1>
+            <hr>
+        </div>
+        <div class="columns is-multiline">
+            <div class="column is-2" *ngFor="let image of pagination.data">
+                <img [src]="GALLERY_URL + image.image" [routerLink]="['/gallery/image', image.image]">
+            </div>
+        </div>
+        <hr>
+        <mat-paginator [length]="pagination.total" [pageSize]="pagination.per_page"
+            [pageSizeOptions]="service.pageSizeOptions" [pageIndex]="pagination.current_page - 1"
+            (page)="service.changePageOptions(helpersService, $event)">
+        </mat-paginator>
+    </mat-card>
+
+    <button mat-fab class="add-btn" [routerLink]="['/gallery/add']">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

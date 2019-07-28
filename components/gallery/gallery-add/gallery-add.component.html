@@ -14,35 +14,17 @@
                 <mat-card>
                     <ul cdkDropList (cdkDropListDropped)="drop($event)">
                         <li cdkDrag *ngFor="let image of images; let i = index">
-                            <div style="margin: 1em; position: relative;">
-                                <mat-icon style="position: absolute; top: 5px; right: 5px;"
-                                    (click)="removeImage(image.id)"> close</mat-icon>
+                            <div class="image-container">
+                                <mat-icon class="close-icon" (click)="removeImage(image.id)"> close</mat-icon>
                                 <img src="" [id]="'image-'+image.id">
                             </div>
                         </li>
                     </ul>
-                    <!-- <div class="images columns" *ngFor="let image of images; let i = index" style="position: relative">
-                        <mat-icon style="position: absolute; top: 0; right: 0;" (click)="removeImage(image.id)">close
-                        </mat-icon>
-                        <div class="image is-96x96" style="display: flex; justify-content:center; align-items: center">
-                            <img src="" [id]="'image-'+image.id">
-                        </div>
-
-                        <div class="field">
-                            <mat-form-field>
-                                <input matInput type="number" placeholder="Galeri Sıralamsı" [(ngModel)]="weight[i]"
-                                    [name]="'weight-' + i" required>
-                            </mat-form-field>
-                        </div>
-                    </div> -->
 
                     <input type="file" #file style="display: none" (change)="showImage()" ngModel name="image" multiple>
 
-
                     <div class="field">
-
                         <button mat-button (click)="file.click()" type="button">Resim Yükle</button>
-
                     </div>
                 </mat-card>
             </div>

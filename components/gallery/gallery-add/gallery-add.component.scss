@@ -1,0 +1,15 @@
+.close-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+  &:hover {
+      cursor: pointer;
+  }
+}
+
+.image-container {
+  margin: 1em;
+  position: relative;
+}

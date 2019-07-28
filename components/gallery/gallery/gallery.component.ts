@@ -35,7 +35,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute
   ) {
-    this.GALLERY_URL = this.requestService.MAIN_URI + 'images/gallery-thumb/';
+    this.GALLERY_URL = this.requestService.makeUrl('storage.gallery.thumbs');
   }
 
   ngOnInit() {

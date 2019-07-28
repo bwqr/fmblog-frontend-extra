@@ -1,20 +1,25 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ExtraRequestService } from 'src/app/extra/services/extra-request.service';
 import { HelpersService } from '../../../imports';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-gallery-add',
   templateUrl: './gallery-add.component.html',
   styleUrls: ['./gallery-add.component.scss']
 })
-export class GalleryAddComponent implements OnInit {
+export class GalleryAddComponent implements OnInit, OnDestroy {
 
   images: any = [];
 
   weight: Array<number> = [];
 
   ID = 0;
+  // Not yet started
+  progressValue = -1;
+
+  subs = new Subscription();
 
   get isPageReady(): boolean {
     return this.images && true;
@@ -28,6 +33,10 @@ export class GalleryAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   removeImage(id: string) {
@@ -71,21 +80,29 @@ export class GalleryAddComponent implements OnInit {
   }
 
   addGallery(f: NgForm) {
+    this.progressValue = 0;
 
     this.uploadGallery(0);
   }
 
   uploadGallery(index: number) {
-    const rq1 = this.requestService.putGallery({
-      weight: JSON.stringify(this.weight[index]),
-    }, this.images[index].file
+    this.progressValue += (100 - this.progressValue) / this.images.length;
+    const image = this.images[index];
+    this.images.splice(index, 1);
+    const rq1 = this.requestService.putGallery(image.file
     ).subscribe((response: any) => {
-      if (index < this.images.length - 1) {
-        this.uploadGallery(++index);
+      if (this.images.length > 0) {
+        this.uploadGallery(0);
         rq1.unsubscribe();
       } else {
         this.helpersService.navigate(['/gallery']);
       }
     });
+  }
+
+  drop(event: any) {
+    const image = this.images[event.previousIndex];
+    this.images.splice(event.previousIndex, 1);
+    this.images.splice(event.currentIndex, 0, image);
   }
 }

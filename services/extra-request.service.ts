@@ -21,21 +21,21 @@ export class ExtraRequestService extends MainRequestService {
     return this.makeGetRequest('extra.gallery.paginate', `?page=${pageIndex}&per-page=${pageSize}`);
   }
 
-  putGallery(data: any, image: any) {
+  putGallery(image: any) {
     const url = this.makeUrl('extra.gallery', '?token=' + this.helpersService.getToken());
 
     const formData = new FormData();
 
     formData.append('file', image);
 
-
-    for (const prop in data) {
-      if (data.hasOwnProperty(prop)) {
-
-        formData.append(prop, data[prop]);
-      }
-    }
-
     return this.http.post(url, formData);
+  }
+
+  putGalleryWeights(data: any): Observable<any> {
+    return this.makePutRequest('extra.gallery.weights', data);
+  }
+
+  deleteGallery(id: number): Observable<any> {
+    return this.makeDeleteRequest('extra.gallery', `${id}`);
   }
 }

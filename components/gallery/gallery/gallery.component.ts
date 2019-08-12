@@ -93,10 +93,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
       this.subs.add(
         this.requestService.deleteGallery(event.item.data.id)
           .subscribe(response => {
-            this.service.openSnack(this.snackBar, {
-              message: 'İşlem Başarılı',
-              action: 'Tamam'
-            }, true);
+            this.service.openSnack(this.snackBar, 'İşlem Başarılı', 'Tamam', true);
             this.pagination.data.splice(event.previousIndex, 1);
           })
       );
@@ -113,10 +110,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.requestService.putGalleryWeights({ weights: order })
         .subscribe(response => {
-          this.service.openSnack(this.snackBar, {
-            message: 'İşlem Başarılı',
-            action: 'Tamam'
-          }, true);
+          this.service.openSnack(this.snackBar, 'İşlem Başarılı', 'Tamam', true);
           this.save = false;
         })
     );

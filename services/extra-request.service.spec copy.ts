@@ -22,11 +22,13 @@ export class ExtraRequestService extends MainRequestService {
   }
 
   postGallery(image: any) {
+    const url = this.makeUrl('extra.gallery', '?token=' + this.helpersService.getToken());
+
     const formData = new FormData();
 
     formData.append('file', image);
 
-    return this.makePostRequestWithFormData('extra.gallery', formData);
+    return this.http.post(url, formData);
   }
 
   putGalleryWeights(data: any): Observable<any> {

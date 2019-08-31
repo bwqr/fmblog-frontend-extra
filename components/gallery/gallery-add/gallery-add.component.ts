@@ -89,7 +89,7 @@ export class GalleryAddComponent implements OnInit, OnDestroy {
     this.progressValue += (100 - this.progressValue) / this.images.length;
     const image = this.images[index];
     this.images.splice(index, 1);
-    const rq1 = this.requestService.putGallery(image.file
+    const rq1 = this.requestService.postGallery(image.file
     ).subscribe((response: any) => {
       if (this.images.length > 0) {
         this.uploadGallery(0);

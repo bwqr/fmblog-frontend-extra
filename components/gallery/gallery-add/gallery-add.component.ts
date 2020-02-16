@@ -25,7 +25,7 @@ export class GalleryAddComponent implements OnInit, OnDestroy {
     return this.images && true;
   }
 
-  @ViewChild('file', { static: false }) file: ElementRef;
+  @ViewChild('file') file: ElementRef;
 
   constructor(
     private requestService: ExtraRequestService,
